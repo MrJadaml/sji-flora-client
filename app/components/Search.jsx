@@ -7,7 +7,12 @@ const Search = React.createClass({
   render() {
     return (
       <div>
-        <input autoFocus onChange={this.handleFilter} ref="search" type="text" />
+        <input
+          autoFocus="true"
+          onChange={this.handleFilter}
+          ref="search"
+          type="text"
+        />
       </div>
     );
   }
