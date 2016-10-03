@@ -37,9 +37,10 @@ const App = React.createClass({
         const stringVal = item[prop].toString().toLowerCase();
 
         if (stringVal.indexOf(search) !== -1) {
-          return item;
+          return true;
         }
       }
+      return false;
     });
 
     this.setState({ plantsSearch: updatedPlants });

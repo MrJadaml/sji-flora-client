@@ -5,7 +5,7 @@ const Plant = React.createClass({
   render() {
     return <li>
       <div>
-        <h3>{ this.props.plant.sci_name }</h3>
+        <h3>{ this.props.plant.common_name }</h3>
         <p>Native: { this.props.plant.is_native.toString() }</p>
       </div>
     </li>;
