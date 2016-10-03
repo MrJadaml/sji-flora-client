@@ -1,30 +1,35 @@
 import Plants from './Plants';
 import React from 'react';
 import Search from './Search';
+import axios from 'axios';
 
 const App = React.createClass({
-  getDefaultProps() {
-    return {
-      url: 'http://omdbapi.com?t='
-    };
-  },
   getInitialState() {
     return {
-      plants: [
-        { sci_name: 'Zigadenus venenosus', common_name: 'Meadow death camas', family_name: 'Liliaceae', is_native: false },
-        { sci_name: 'Zostera marina', common_name: 'Wide-blade eelgrass', family_name: 'Zosteraceae', is_native: false }
-      ],
+      plants: [],
       plantsSearch: []
     };
   },
   componentWillMount() {
     this.setState({ plantsSearch: this.state.plants });
   },
+  componentDidMount() {
+    this.serverRequest = axios.get('http://localhost:8001/api/plants')
+      .then((plantsData) => {
+        this.setState({
+          plants: plantsData.data,
+          plantsSearch: plantsData.data
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   filterPlants(searchVal = '') {
     const search = searchVal.toLowerCase().trim();
 
     if (search === '') {
-      return this.state.plants;
+      this.setState({ plantsSearch: this.state.plants });
     }
 
     const updatedPlants = this.state.plants.filter((item) => {
